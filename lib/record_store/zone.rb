@@ -205,7 +205,7 @@ module RecordStore
 
     def validate_records
       records.each do |record|
-        unless record.fqdn.end_with?(name)
+        unless record.fqdn.end_with?(name) || (record.type == "PTR" && record.fqdn.end_with?("in-addr.arpa."))
           errors.add(:records, "record #{record} does not belong in zone #{name}")
         end
 
