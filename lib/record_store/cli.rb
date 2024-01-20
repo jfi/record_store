@@ -290,7 +290,11 @@ module RecordStore
         invalid_records.each do |record|
           puts "    #{record}"
           record.errors.each do |field, msg|
-            puts "      - #{field}: #{msg}"
+            if field.is_a?(ActiveModel::Error)
+              puts "      - #{field.full_message}"
+            else
+              puts "      - #{field}: #{msg}"
+            end
           end
         end
       end
